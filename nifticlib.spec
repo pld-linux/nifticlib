@@ -8,6 +8,7 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/niftilib/%{name}-%{version}.tar.gz
 # Source0-md5:	4d0828e5783df40fb98b8dd6edc11ebb
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-cmake.patch
 URL:		http://niftilib.sourceforge.net/
 BuildRequires:	cmake
 BuildRequires:	zlib-devel
@@ -46,6 +47,7 @@ Pliki nagłówkowe bibliotek C niftilib.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %cmake . \
@@ -53,7 +55,7 @@ Pliki nagłówkowe bibliotek C niftilib.
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 	-DCMAKE_SKIP_RPATH=1 \
 	-DCMAKE_VERBOSE_MAKEFILE=1 \
-	-DLIB_INSTALL_DIR=%{_libdir}
+	-DNIFTI_INSTALL_LIB_DIR=%{_libdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
