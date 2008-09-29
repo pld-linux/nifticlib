@@ -51,10 +51,10 @@ Pliki nagłówkowe bibliotek C niftilib.
 
 %build
 %cmake . \
-	-DBUILD_SHARED_LIBS=1 \
+	-DBUILD_SHARED_LIBS=ON \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DCMAKE_SKIP_RPATH=1 \
-	-DCMAKE_VERBOSE_MAKEFILE=1 \
+	-DCMAKE_SKIP_RPATH=ON \
+	-DCMAKE_VERBOSE_MAKEFILE=ON \
 	-DNIFTI_INSTALL_LIB_DIR=%{_libdir}
 
 %install
