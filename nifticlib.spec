@@ -51,6 +51,8 @@ Pliki nagłówkowe bibliotek C niftilib.
 
 %build
 %cmake . \
+	-DCMAKE_CXX_COMPILER_WORKS=1 \
+	-DCMAKE_CXX_COMPILER="%{__cc}" \
 	-DBUILD_SHARED_LIBS=ON \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 	-DCMAKE_SKIP_RPATH=ON \
