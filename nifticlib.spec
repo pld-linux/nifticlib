@@ -1,12 +1,12 @@
 Summary:	C I/O libraries for files in the nifti-1 data format
 Summary(pl.UTF-8):	Biblioteki C wejścia/wyjścia dla plików danych w formacie nifti-1
 Name:		nifticlib
-Version:	1.0.0
+Version:	2.0.0
 Release:	1
 License:	Public Domain
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/niftilib/%{name}-%{version}.tar.gz
-# Source0-md5:	4d0828e5783df40fb98b8dd6edc11ebb
+Source0:	http://downloads.sourceforge.net/niftilib/%{name}-%{version}.tar.gz
+# Source0-md5:	425a711f8f92fb1e1f088cbc55bea53a
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-cmake.patch
 URL:		http://niftilib.sourceforge.net/
@@ -50,19 +50,15 @@ Pliki nagłówkowe bibliotek C niftilib.
 %patch1 -p1
 
 %build
-%cmake . \
-	-DCMAKE_CXX_COMPILER_WORKS=1 \
-	-DCMAKE_CXX_COMPILER="%{__cc}" \
-	-DBUILD_SHARED_LIBS=ON \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DCMAKE_SKIP_RPATH=ON \
-	-DCMAKE_VERBOSE_MAKEFILE=ON \
-	-DNIFTI_INSTALL_LIB_DIR=%{_libdir}
+install -d build
+cd build
+%cmake ..
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
@@ -76,12 +72,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE README Updates.txt
 %attr(755,root,root) %{_bindir}/nifti_stats
 %attr(755,root,root) %{_bindir}/nifti_tool
+%attr(755,root,root) %{_bindir}/nifti1_test
 %attr(755,root,root) %{_libdir}/libnifticdf.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libnifticdf.so.1
+%attr(755,root,root) %ghost %{_libdir}/libnifticdf.so.2
 %attr(755,root,root) %{_libdir}/libniftiio.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libniftiio.so.1
+%attr(755,root,root) %ghost %{_libdir}/libniftiio.so.2
 %attr(755,root,root) %{_libdir}/libznz.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libznz.so.1
+%attr(755,root,root) %ghost %{_libdir}/libznz.so.2
 
 %files devel
 %defattr(644,root,root,755)
