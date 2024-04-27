@@ -50,6 +50,9 @@ Pliki nagłówkowe bibliotek C niftilib.
 %setup -q -n nifti_clib-%{version}
 %patch1 -p1
 
+# version is set from git tag, but no git metadata in archive
+%{__sed} -i -e 's/if( NOT GIT_REPO_VERSION )/if( TRUE )/; s/set(GIT_REPO_VERSION "0\.0\.0\.0")/set(GIT_REPO_VERSION "%{version}")/' CMakeLists.txt
+
 %build
 install -d build
 cd build
